@@ -11,14 +11,15 @@ script:
 - export LAME_VERSION="${TRAVIS_TAG:-3.100}"
 - wget https://sourceforge.net/projects/lame/files/lame/${LAME_VERSION}/lame-${LAME_VERSION}.tar.gz
 - tar -xf lame-${LAME_VERSION}.tar.gz
-- cd lame-${LAME_VERSION}
+- pusd lame-${LAME_VERSION}
 - MSYS_NO_PATHCONV=1 cmd /c ..\\build-libmp3lame.cmd
-- cd ..
+- popd
 - mkdir -p stage/lame-${LAME_VERSION}/lib stage/lame-${LAME_VERSION}/include/lame
 - cp lame-${LAME_VERSION}/output/* stage/lame-${LAME_VERSION}/lib
 - cp lame-${LAME_VERSION}/include/lame.h stage/lame-${LAME_VERSION}/include/lame
-- cd stage
+- pushd stage
 - 7z a -tzip -mx=9 lame-${LAME_VERSION}.zip lame-${LAME_VERSION}
+- popd
 
 matrix:
   include:
@@ -28,3 +29,13 @@ matrix:
   - os: windows
     name: Win64
     env: TARGET_PLATFORM=amd64
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: ${GITHUB_OAUTH_TOKEN}
+  file:
+  - stage/lame-${TRAVIS_TAG}.zip
+  on:
+    branch: master
+    tags: true
