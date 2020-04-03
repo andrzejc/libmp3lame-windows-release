@@ -18,7 +18,7 @@ script:
 - cp lame-${LAME_VERSION}/output/* stage/lame-${LAME_VERSION}/lib
 - cp lame-${LAME_VERSION}/include/lame.h stage/lame-${LAME_VERSION}/include/lame
 - pushd stage
-- 7z a -tzip -mx=9 lame-${LAME_VERSION}.zip lame-${LAME_VERSION}
+- 7z a -tzip -mx=9 lame-${LAME_VERSION}-win-${TARGET_PLATFORM}.zip lame-${LAME_VERSION}
 - popd
 
 matrix:
@@ -35,7 +35,7 @@ deploy:
   skip_cleanup: true
   api_key: ${GITHUB_OAUTH_TOKEN}
   file:
-  - stage/lame-${TRAVIS_TAG}.zip
+  - stage/lame-${LAME_VERSION}-win-${TARGET_PLATFORM}.zip
   on:
     branch: master
     tags: true
