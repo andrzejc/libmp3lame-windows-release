@@ -18,7 +18,7 @@ script:
 - cp lame-${LAME_VERSION}/output/* stage/lame-${LAME_VERSION}/lib
 - cp lame-${LAME_VERSION}/include/lame.h stage/lame-${LAME_VERSION}/include/lame
 - cd stage
-- zip -r -9 -v lame-${LAME_VERSION}.zip lame-${LAME_VERSION}
+- 7z a -tzip -mx=9 lame-${LAME_VERSION}.zip lame-${LAME_VERSION}
 
 matrix:
   include:
