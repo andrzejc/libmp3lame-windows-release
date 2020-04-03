@@ -11,7 +11,7 @@ script:
 - export LAME_VERSION="${TRAVIS_TAG:-3.100}"
 - wget https://sourceforge.net/projects/lame/files/lame/${LAME_VERSION}/lame-${LAME_VERSION}.tar.gz
 - tar -xf lame-${LAME_VERSION}.tar.gz
-- pusd lame-${LAME_VERSION}
+- pushd lame-${LAME_VERSION}
 - MSYS_NO_PATHCONV=1 cmd /c ..\\build-libmp3lame.cmd
 - popd
 - mkdir -p stage/lame-${LAME_VERSION}/lib stage/lame-${LAME_VERSION}/include/lame
