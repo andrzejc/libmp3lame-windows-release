@@ -1,0 +1,22 @@
+language: c
+
+git:
+  depth: 1
+
+install:
+- choco install nasm
+
+script:
+- wget https://sourceforge.net/projects/lame/files/lame/3.100/lame-3.100.tar.gz
+- tar -xf lame-3.100.tar.gz
+- cd lame-3.100
+- MSYS_NO_PATHCONV=1 cmd /c ..\\build-libmp3lame.cmd
+
+matrix:
+  include:
+  - os: windows
+    name: Win32
+    env: TARGET_PLATFORM=Win32
+  - os: windows
+    name: Win64
+    env: TARGET_PLATFORM=x64
