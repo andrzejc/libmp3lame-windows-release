@@ -7,10 +7,18 @@ install:
 - choco install nasm
 
 script:
-- wget https://sourceforge.net/projects/lame/files/lame/3.100/lame-3.100.tar.gz
-- tar -xf lame-3.100.tar.gz
-- cd lame-3.100
+- set -e -o pipefail
+- export LAME_VERSION="${TRAVIS_TAG:-3.100}"
+- wget https://sourceforge.net/projects/lame/files/lame/${LAME_VERSION}/lame-${LAME_VERSION}.tar.gz
+- tar -xf lame-${LAME_VERSION}.tar.gz
+- cd lame-${LAME_VERSION}
 - MSYS_NO_PATHCONV=1 cmd /c ..\\build-libmp3lame.cmd
+- cd ..
+- mkdir -p stage/lame-${LAME_VERSION}/lib stage/lame-${LAME_VERSION}/include/lame
+- cp lame-${LAME_VERSION}/output/* stage/lame-${LAME_VERSION}/lib
+- cp lame-${LAME_VERSION}/include/lame.h stage/lame-${LAME_VERSION}/include/lame
+- cd stage
+- zip -r -9 -v lame-${LAME_VERSION}.zip lame-${LAME_VERSION}
 
 matrix:
   include:
