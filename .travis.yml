@@ -16,7 +16,7 @@ matrix:
   include:
   - os: windows
     name: Win32
-    env: TARGET_PLATFORM=Win32
+    env: TARGET_PLATFORM=x86
   - os: windows
     name: Win64
-    env: TARGET_PLATFORM=x64
+    env: TARGET_PLATFORM=amd64
